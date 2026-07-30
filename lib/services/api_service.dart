@@ -7,7 +7,7 @@ class ApiService {
 
   Future<List<Product>> getProducts() async {
     final response = await http.get(
-      Uri.parse("${baseUrl}products"),
+      Uri.parse("${baseUrl}/products"),
     );
 
     if (response.statusCode == 200){

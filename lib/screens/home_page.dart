@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/product.dart';
 import 'package:frontend_flutter/services/api_service.dart';
+import 'package:frontend_flutter/widgets/product_cart.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         return ListView.builder(
           itemCount: snapshot.data!.length,
           itemBuilder: (context, index){
-            return ProductCard(
+            return ProductCart(
               product:snapshot.data![index]
             );
           },
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-
+            
         },
         child: Icon(Icons.add),
         ),
