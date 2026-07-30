@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/product.dart';
+import 'package:frontend_flutter/screens/add_page.dart';
 import 'package:frontend_flutter/services/api_service.dart';
 import 'package:frontend_flutter/widgets/product_cart.dart';
 
@@ -20,37 +21,46 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Data produk"),
         centerTitle: true,
       ),
-      body: FutureBuilder<List<Product>>(future: api.getProducts(), builder: (context,snapshot){
-        if(snapshot.connectionState == ConnectionState.waiting){
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if(snapshot.hasError){
-          return Center(
-            child: Text(snapshot.error.toString()),
-          );
-        }
-        if(!snapshot.hasData){
-          return const Center(
-            child: Text("Data kosong"),
-          );
-        }
-        return ListView.builder(
-          itemCount: snapshot.data!.length,
-          itemBuilder: (context, index){
-            return ProductCart(
-              product:snapshot.data![index]
+      body: FutureBuilder<List<Product>>(
+          future: api.getProducts(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(snapshot.error.toString()),
+              );
+            }
+            if (!snapshot.hasData) {
+              return const Center(
+                child: Text("Data kosong"),
+              );
+            }
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return ProductCart(product: snapshot.data![index]);
+              },
             );
-          },
-          );
-      }),
+          }),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-            
+        onPressed: () async {
+          final hasil = await Navigator.push(
+            context, MaterialPageRoute(
+              builder: (_) => const AddPage()
+              )
+            );
+          if(hasil == true) {
+            setState(() {
+              
+            });
+          }
         },
-        child: Icon(Icons.add),
-        ),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

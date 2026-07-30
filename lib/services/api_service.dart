@@ -7,7 +7,7 @@ class ApiService {
 
   Future<List<Product>> getProducts() async {
     final response = await http.get(
-      Uri.parse("${baseUrl}/products"),
+      Uri.parse("$baseUrl/products"),
     );
 
     if (response.statusCode == 200){
@@ -18,5 +18,20 @@ class ApiService {
     }else{
       throw Exception("Gagal mengambil data");
     }
+  }
+
+  Future<bool>storeProducts(
+    Product product
+  ) async {
+    final response = await http.post(
+      Uri.parse("$baseUrl/products"),
+      body: {
+        "nama":product.nama,
+        "harga":product.harga.toString(),
+        "stok":product.stok.toString(),
+        "deskripsi":product.deskripsi
+      },
+    );
+    return response.statusCode == 201;
   }
 }
