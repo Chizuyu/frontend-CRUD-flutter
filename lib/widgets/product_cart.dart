@@ -33,7 +33,7 @@ class ProductCart extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.edit),
+                      icon: const Icon(Icons.edit, color: Colors.blue),
                       onPressed: () async {
                         final hasil = await Navigator.push(
                           context,
