@@ -34,4 +34,19 @@ class ApiService {
     );
     return response.statusCode == 201;
   }
+
+  Future<bool> updateProduct(Product product) async {
+    final response = await http.put(
+      Uri.parse("$baseUrl/products/${product.id}"),
+      body: {
+        "nama": product.nama,
+        "harga": product.harga.toString(),
+        "stok": product.stok.toString(),
+        "deskripsi": product.deskripsi
+      },
+    );
+    
+    // Biasanya backend mengembalikan status code 200 setelah berhasil memperbarui data
+    return response.statusCode == 200;
+  }
 }
