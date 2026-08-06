@@ -46,7 +46,14 @@ class ApiService {
       },
     );
     
-    // Biasanya backend mengembalikan status code 200 setelah berhasil memperbarui data
     return response.statusCode == 200;
+  }
+
+  Future<bool> deleteProduct(int id) async {
+    final response = await http.delete(
+      Uri.parse("$baseUrl/products/$id"),
+    );
+
+    return response.statusCode == 200 || response.statusCode == 204;
   }
 }
