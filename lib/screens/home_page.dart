@@ -42,7 +42,13 @@ class _HomePageState extends State<HomePage> {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                return ProductCart(product: snapshot.data![index]);
+                return ProductCart(product: snapshot.data![index],
+                  onRefresh: () {
+                    setState(() {
+                      
+                    });
+                  },
+                );
               },
             );
           }),

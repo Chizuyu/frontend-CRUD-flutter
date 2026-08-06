@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/product.dart';
+import 'package:frontend_flutter/screens/edit_page.dart';
 
 class ProductCart extends StatelessWidget {
   final Product product;
-  const ProductCart({super.key, required this.product});
+  final VoidCallback onRefresh;
+  const ProductCart(
+      {super.key, required this.product, required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +36,17 @@ class ProductCart extends StatelessWidget {
                     ),
                     IconButton(
                       icon: const Icon(Icons.edit),
-                      onPressed: () {
-                        // Handle edit action here
+                      onPressed: () async {
+                        final hasil = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => EditPage(product: product),
+                          ),
+                        );
+
+                        if (hasil == true) {
+                          onRefresh();
+                        }
                       },
                     ),
                   ],
