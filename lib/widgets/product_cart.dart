@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/product.dart';
 import 'package:frontend_flutter/screens/edit_page.dart';
+import 'package:frontend_flutter/services/api_service.dart';
+
 
 class ProductCart extends StatelessWidget {
   final Product product;
@@ -10,6 +12,8 @@ class ProductCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  final ApiService api = ApiService();
+
     return Card(
       margin: const EdgeInsets.all(8),
       elevation: 4,
@@ -29,12 +33,6 @@ class ProductCart extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        // Handle delete action here
-                      },
-                    ),
-                    IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () async {
                         final hasil = await Navigator.push(
@@ -46,6 +44,47 @@ class ProductCart extends StatelessWidget {
 
                         if (hasil == true) {
                           onRefresh();
+                        }
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () async {
+                        // Tampilkan dialog konfirmasi singkat
+                        bool? setuju = await showDialog<bool>(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("Hapus Produk"),
+                            content: const Text("Yakin ingin menghapus produk ini?"),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, false),
+                                child: const Text("Batal"),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, true),
+                                child: const Text("Hapus"),
+                              ),
+                            ],
+                          ),
+                        );
+
+                        // Jika memilih 'Hapus', panggil API delete
+                        if (setuju == true) {
+                          bool berhasil = await api.deleteProduct(product.id!); // Sesuaikan atribut id Anda
+
+                          if (context.mounted) {
+                            if (berhasil) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Data berhasil dihapus")),
+                              );
+                              onRefresh(); // Refresh halaman utama
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Gagal menghapus data")),
+                              );
+                            }
+                          }
                         }
                       },
                     ),
