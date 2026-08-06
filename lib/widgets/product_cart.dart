@@ -23,10 +23,21 @@ class ProductCart extends StatelessWidget {
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                Text(
-                  "${product.id}",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        // Handle delete action here
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: () {
+                        // Handle edit action here
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),

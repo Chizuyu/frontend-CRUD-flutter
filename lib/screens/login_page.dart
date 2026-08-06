@@ -15,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void doLogin() {
     if (emailController.text == "yst@gmail.com" &&
-        passwordController.text == "yst123") {
+        passwordController.text == "123") {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => const HomePage()));
     } else {
