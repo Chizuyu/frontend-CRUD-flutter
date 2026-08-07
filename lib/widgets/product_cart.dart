@@ -33,7 +33,9 @@ class ProductCart extends StatelessWidget {
                   Text(
                     product.nama,
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                   Row(
                     children: [
@@ -101,18 +103,36 @@ class ProductCart extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(
-                "Harga: Rp${product.harga}",
-                style: const TextStyle(
-                    fontWeight: FontWeight.normal, fontSize: 20),
+              Row(
+                children: [
+                  Icon(Icons.attach_money),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Rp${product.harga}",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.normal, fontSize: 20),
+                  ),
+                ],
               ),
               const SizedBox(height: 10),
-              Text(
-                "Stok: ${product.stok}",
-                style: const TextStyle(
-                    fontWeight: FontWeight.normal, fontSize: 20),
+              Row(
+                children: [
+                  Icon(Icons.inventory),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Stok: ${product.stok}",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.normal, fontSize: 20),
+                  ),
+                ],
               ),
-              const SizedBox(height: 10),
+              const Divider(
+                height: 25,
+              ),
               Text(
                 product.deskripsi,
                 style: const TextStyle(

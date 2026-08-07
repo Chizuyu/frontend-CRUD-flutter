@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/product.dart';
+import 'package:frontend_flutter/screens/home_page.dart';
 import 'package:frontend_flutter/services/api_service.dart';
 
 class EditPage extends StatefulWidget {
@@ -67,7 +68,7 @@ class _EditPageState extends State<EditPage> {
     if (berhasil) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Data berhasil di update")));
-      Navigator.pop(context, true);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>HomePage()));
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Data gagal di update")));

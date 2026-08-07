@@ -59,7 +59,7 @@ class DetailProduct extends StatelessWidget {
                           width: 10,
                         ),
                         Text(
-                          "Rp${product.harga}",
+                          "Rp ${product.harga}",
                           style: const TextStyle(fontSize: 18),
                         )
                       ],
