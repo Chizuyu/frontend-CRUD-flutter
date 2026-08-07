@@ -50,8 +50,11 @@ class _AddPageState extends State<AddPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Tambah Produk"
+          "Tambah Produk",
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         centerTitle: true,
       ),
       body: Padding(
