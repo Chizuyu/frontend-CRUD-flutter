@@ -11,7 +11,9 @@ class DetailProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detail Produk"),
+        title: const Text("Detail Produk", style: TextStyle(fontWeight: FontWeight.bold),),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
