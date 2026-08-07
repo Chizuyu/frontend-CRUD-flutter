@@ -19,7 +19,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Data produk", style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          "Data produk",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        foregroundColor: Colors.white,
         // centerTitle: true,
         backgroundColor: Colors.blue,
       ),
