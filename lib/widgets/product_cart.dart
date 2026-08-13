@@ -27,6 +27,33 @@ class ProductCart extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Center(
+                child: ClipRRect(
+                        borderRadius: BorderRadius.circular(13),
+                        child: product.gambar == null || product.gambar!.isEmpty
+                            ? Image.asset(
+                                "assets/image1.jpg",
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                "http://127.0.0.1:8000/storage/products/${product.gambar}",
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                return Image.asset(
+                                  "assets/image1.jpg",
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.cover,
+                                );
+                              }
+                            )
+                           ),
+              ),
+              const SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -133,11 +160,11 @@ class ProductCart extends StatelessWidget {
               const Divider(
                 height: 25,
               ),
-              Text(
-                product.deskripsi,
-                style: const TextStyle(
-                    fontWeight: FontWeight.normal, fontSize: 20),
-              ),
+              // Text(
+              //   product.deskripsi,
+              //   style: const TextStyle(
+              //       fontWeight: FontWeight.normal, fontSize: 20),
+              // ),
             ],
           ),
         ),

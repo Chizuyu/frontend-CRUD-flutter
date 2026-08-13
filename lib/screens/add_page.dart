@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/product.dart';
 import 'package:frontend_flutter/services/api_service.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -11,139 +13,205 @@ class AddPage extends StatefulWidget {
 
 class _AddPageState extends State<AddPage> {
   final _formKey = GlobalKey<FormState>();
-
-  final nameController = TextEditingController();
+  final namaController = TextEditingController();
   final hargaController = TextEditingController();
   final stokController = TextEditingController();
   final deskripsiController = TextEditingController();
-
   final ApiService api = ApiService();
   bool loading = false;
+  File? image;
+  final picker = ImagePicker();
 
-  Future<void>simpanData()async{
-    if(!_formKey.currentState!.validate()){
+  Future<void> pilihGambar() async {
+    final XFile? picked = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (picked != null) {
+      setState(() {
+        image = File(picked.path);
+      });
+    }
+  }
+
+  Future<void> SimpanData() async {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     setState(() {
       loading = true;
     });
     Product product = Product(
-      nama: nameController.text,
+      nama: namaController.text,
       harga: double.parse(hargaController.text),
       stok: int.parse(stokController.text),
-      deskripsi: deskripsiController.text,  
+      deskripsi: deskripsiController.text,
     );
-    bool berhasil = await api.storeProducts(product);
+    bool berhasil = await api.storeProducts(product,image);
     setState(() {
       loading = false;
     });
-
-    if(berhasil){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Data berhasil di tambahkan")));
-      Navigator.pop(context,true);
-    }else{
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Data gagal di tambahkan")));
+    if (berhasil) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('product Berhasil ditamabahkan'),
+        ),
+      );
+      Navigator.pop(context, true);
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Produk Gagal diTambahkan')));
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Tambah Produk",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.blue,
-        centerTitle: true,
-      ),
-      body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              children: [
-                TextFormField(
-                  controller: nameController,
-                  decoration: const InputDecoration(
-                    labelText: "Nama Produk",
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.shopping_bag)
-                  ),
-                  validator: (value){
-                    if(value!.isEmpty) {
-                      return "Nama produk wajib di isi!";
-                    }
-                    return null;
-                  },
+        appBar: AppBar(
+            title: Text('Tambah Produk'),
+            centerTitle: true,
+            backgroundColor: Colors.orange),
+        body: Padding(
+            padding: EdgeInsets.all(16),
+            child: Center(
+                child: Column(children: [
+              Center(
+                child: GestureDetector(
+                  onTap: pilihGambar,
+                  child: image == null
+                      ? Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 113, 10, 10)),
+                          child: Icon(
+                            Icons.add_a_photo,
+                            size: 60,
+                          ),
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.file(
+                            image!,
+                            height: 80,
+                            width: 80,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                 ),
-                const SizedBox(height: 10,),
-                TextFormField(
-                  controller: hargaController,
-                  decoration: const InputDecoration(
-                    labelText: "Harga Produk",
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.price_check_sharp)
-                  ),
-                  validator: (value){
-                    if(value!.isEmpty) {
-                      return "Harga produk wajib di isi!";
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10,),
-                TextFormField(
-                  controller: stokController,
-                  decoration: const InputDecoration(
-                    labelText: "Stok Produk",
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.tag)
-                  ),
-                  validator: (value){
-                    if(value!.isEmpty) {
-                      return "Stok produk wajib di isi!";
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10,),
-                TextFormField(
-                  controller: deskripsiController,
-                  decoration: const InputDecoration(
-                    labelText: "Deskripsi Produk",
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.description)
-                  ),
-                  validator: (value){
-                    if(value!.isEmpty) {
-                      return "Deskripsi produk wajib di isi!";
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20,),
-                SizedBox( 
-                  height: 55,
-                  child: ElevatedButton.icon(
-                    onPressed: loading?null:simpanData, 
-                    icon: loading
-                    ?const SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Colors.white,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Expanded(
+                child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    children: [
+                      TextFormField(
+                        controller: namaController,
+                        decoration: InputDecoration(
+                          labelText: "nama Produk",
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.shopping_bag),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "nama Produk Wajib Diisi";
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
-                    )
-                    :const Icon(Icons.save),
-                    label:Text(loading ?"Menyimpan...":"SIMPAN")
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: hargaController,
+                        decoration: InputDecoration(
+                          labelText: "harga Produk",
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.money),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "harga Produk Wajib Diisi";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: stokController,
+                        decoration: InputDecoration(
+                          labelText: "stok Produk",
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.inventory),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "stok Produk Wajib Diisi";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: deskripsiController,
+                        decoration: InputDecoration(
+                          labelText: "deskripsi Produk",
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.description),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "deskripsi Produk Wajib Diisi";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        height: 55,
+                        child: ElevatedButton.icon(
+                          onPressed: loading ? null : SimpanData,
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              foregroundColor: Colors.white),
+                          icon: loading
+                              ? SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.deepPurple,
+                                  ),
+                                )
+                              : Icon(Icons.save),
+                          label: Text(
+                            loading ? 'Menyimpan' : 'Simpan',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            )
-          ),
-        ),
-    );
+                ),
+              ),
+            ]
+           )
+         )
+      )
+     );
   }
+
+
 }

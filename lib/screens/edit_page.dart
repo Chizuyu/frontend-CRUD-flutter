@@ -59,7 +59,7 @@ class _EditPageState extends State<EditPage> {
       deskripsi: deskripsiController.text,
     );
 
-    bool berhasil = await api.updateProduct(product);
+    bool berhasil = await api.updateProducts(product);
 
     setState(() {
       loading = false;
