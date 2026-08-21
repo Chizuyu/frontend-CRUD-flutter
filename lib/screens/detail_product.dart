@@ -22,17 +22,33 @@ class DetailProduct extends StatelessWidget {
           children: [
             Hero(
                 tag: product.id!,
-                child: Container(
+                child: SizedBox(
                   height: 220,
                   width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.cyanAccent,
-                      borderRadius: BorderRadius.circular(16)),
-                  child: const Center(
-                    child: Icon(
-                      Icons.computer_rounded,
-                      size: 120,
-                      color: Colors.deepOrange,
+                  child: Center(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(16)),
+                      child: product.gambar == null || product.gambar!.isEmpty
+                      ? Image.asset(
+                          "assets/image1.jpg",
+                          height: 220,
+                          width: 220,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.network(
+                          "http://127.0.0.1:8000/storage/products/${product.gambar}",
+                          height: 220,
+                          width: 220,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              "assets/image1.jpg",
+                              height: 220,
+                              width: 220,
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        ),
                     ),
                   ),
                 )),

@@ -52,14 +52,14 @@ class _AddPageState extends State<AddPage> {
     });
     if (berhasil) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('product Berhasil ditamabahkan'),
         ),
       );
       Navigator.pop(context, true);
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Produk Gagal diTambahkan')));
+          .showSnackBar(const SnackBar(content: Text('Produk Gagal diTambahkan')));
     }
   }
 
@@ -67,11 +67,11 @@ class _AddPageState extends State<AddPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('Tambah Produk'),
+            title: const Text('Tambah Produk'),
             centerTitle: true,
             backgroundColor: Colors.orange),
         body: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Center(
                 child: Column(children: [
               Center(
@@ -81,9 +81,9 @@ class _AddPageState extends State<AddPage> {
                       ? Container(
                           height: 80,
                           width: 80,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 113, 10, 10)),
-                          child: Icon(
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 113, 10, 10)),
+                          child: const Icon(
                             Icons.add_a_photo,
                             size: 60,
                           ),
@@ -99,7 +99,7 @@ class _AddPageState extends State<AddPage> {
                         ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Expanded(
@@ -109,7 +109,7 @@ class _AddPageState extends State<AddPage> {
                     children: [
                       TextFormField(
                         controller: namaController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "nama Produk",
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.shopping_bag),
@@ -122,12 +122,12 @@ class _AddPageState extends State<AddPage> {
                           }
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
                         controller: hargaController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "harga Produk",
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.money),
@@ -140,12 +140,12 @@ class _AddPageState extends State<AddPage> {
                           }
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
                         controller: stokController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "stok Produk",
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.inventory),
@@ -158,12 +158,12 @@ class _AddPageState extends State<AddPage> {
                           }
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
                         controller: deskripsiController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: "deskripsi Produk",
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.description),
@@ -176,7 +176,7 @@ class _AddPageState extends State<AddPage> {
                           }
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       SizedBox(
@@ -187,7 +187,7 @@ class _AddPageState extends State<AddPage> {
                               backgroundColor: Colors.green,
                               foregroundColor: Colors.white),
                           icon: loading
-                              ? SizedBox(
+                              ? const SizedBox(
                                   height: 20,
                                   width: 20,
                                   child: CircularProgressIndicator(
@@ -195,10 +195,10 @@ class _AddPageState extends State<AddPage> {
                                     color: Colors.deepPurple,
                                   ),
                                 )
-                              : Icon(Icons.save),
+                              : const Icon(Icons.save),
                           label: Text(
                             loading ? 'Menyimpan' : 'Simpan',
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       )

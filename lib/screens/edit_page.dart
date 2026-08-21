@@ -68,7 +68,7 @@ class _EditPageState extends State<EditPage> {
     if (berhasil) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Data berhasil di update")));
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>HomePage()));
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>const HomePage()));
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Data gagal di update")));

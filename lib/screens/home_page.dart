@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/product.dart';
 import 'package:frontend_flutter/screens/add_page.dart';
 import 'package:frontend_flutter/screens/detail_product.dart';
+import 'package:frontend_flutter/screens/login_page.dart';
 import 'package:frontend_flutter/services/api_service.dart';
 import 'package:frontend_flutter/widgets/product_cart.dart';
 
@@ -28,7 +29,8 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.logout),
             onPressed: () async {
               await api.logout();
-              Navigator.pushReplacementNamed(context, "/login");
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (_) => const LoginPage()));
             },
           )
         ],

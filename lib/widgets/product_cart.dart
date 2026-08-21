@@ -23,7 +23,7 @@ class ProductCart extends StatelessWidget {
         margin: const EdgeInsets.all(8),
         elevation: 4,
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -132,7 +132,7 @@ class ProductCart extends StatelessWidget {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  Icon(Icons.attach_money),
+                  const Icon(Icons.attach_money),
                   const SizedBox(
                     width: 10,
                   ),
@@ -146,7 +146,7 @@ class ProductCart extends StatelessWidget {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  Icon(Icons.inventory),
+                  const Icon(Icons.inventory),
                   const SizedBox(
                     width: 10,
                   ),

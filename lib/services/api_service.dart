@@ -11,7 +11,7 @@ class ApiService {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String token = pref.getString("token")??"";
     final response = await http.get(
-      Uri.parse("${baseUrl}/products"),
+      Uri.parse("$baseUrl/products"),
       headers:{
       "Authorization":"Bearer $token",
       "accept":"application/json"
@@ -29,7 +29,7 @@ class ApiService {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String token = pref.getString("token")??"";
     var request = http.MultipartRequest(
-      "POST", Uri.parse("${baseUrl}/products"),
+      "POST", Uri.parse("$baseUrl/products"),
     );
     request.headers.addAll({
       "Authorization":"Bearer $token",
@@ -55,7 +55,7 @@ class ApiService {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String token = pref.getString("token")??"";
     final response = await http.put(
-      Uri.parse("${baseUrl}/products/${product.id}"),
+      Uri.parse("$baseUrl/products/${product.id}"),
       headers: {
         "Authorization":"Bearer $token",
         "accept":"application/json"
@@ -74,7 +74,7 @@ class ApiService {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String token = pref.getString("token")??"";
     final response = await http.delete(
-      Uri.parse("${baseUrl}/products/$id"),
+      Uri.parse("$baseUrl/products/$id"),
       headers: {
         "Authorization":"Bearer $token",
         "accept":"application/json"
@@ -85,7 +85,7 @@ class ApiService {
 
   Future<String?>login(String email, String password) async {
     final response = await http.post(
-      Uri.parse("${baseUrl}/login"),
+      Uri.parse("$baseUrl/login"),
       body: {
         "email":email,
         "password":password,
@@ -102,7 +102,7 @@ class ApiService {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String token = pref.getString("token")??"";
     await http.post(
-      Uri.parse("${baseUrl}/logout"),
+      Uri.parse("$baseUrl/logout"),
       headers: {
         "Authorization":"Bearer $token",
         "accept":"application/json"
