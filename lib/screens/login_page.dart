@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: (){},
+                    onPressed: login,
                     child: const Text(
                       "Login",
                       style:

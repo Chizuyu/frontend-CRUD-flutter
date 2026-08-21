@@ -97,4 +97,16 @@ class ApiService {
     }
     return null;
   }
+
+  Future<void> logout() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String token = pref.getString("token")??"";
+    await http.post(
+      Uri.parse("${baseUrl}/logout"),
+      headers: {
+        "Authorization":"Bearer $token",
+        "accept":"application/json"
+      },
+    );  
+  }
 }
