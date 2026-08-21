@@ -107,6 +107,7 @@ class ApiService {
         "Authorization":"Bearer $token",
         "accept":"application/json"
       },
-    );  
+    );
+    await pref.remove("token");
   }
 }

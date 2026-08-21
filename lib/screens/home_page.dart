@@ -23,6 +23,15 @@ class _HomePageState extends State<HomePage> {
           "Data produk",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await api.logout();
+              Navigator.pushReplacementNamed(context, "/login");
+            },
+          )
+        ],
         foregroundColor: Colors.white,
         // centerTitle: true,
         backgroundColor: Colors.blue,
