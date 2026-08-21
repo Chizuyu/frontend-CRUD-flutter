@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/screens/home_page.dart';
+import 'package:frontend_flutter/services/api_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,16 +13,24 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final ApiService api = ApiService();
   bool isLoading = false;
 
-  void doLogin() {
-    if (emailController.text == "yst@gmail.com" &&
-        passwordController.text == "123") {
+  Future<void>login() async {
+    String? token=await api.login(
+      emailController.text,
+      passwordController.text
+    );
+    if(token != null){
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      await pref.setString("token", token);
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const HomePage()));
-    } else {
+        context,
+        MaterialPageRoute(builder: (_)=>const HomePage()));
+    }else{
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Email atau Password salah!")));
+        const SnackBar(content: Text("Login gagal"))
+      );
     }
   }
 
@@ -67,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: doLogin,
+                    onPressed: (){},
                     child: const Text(
                       "Login",
                       style:
